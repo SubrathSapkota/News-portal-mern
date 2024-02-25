@@ -18,11 +18,18 @@ const newsSchema = new mongoose.Schema({
       "Technology",
       "Health",
       "Business",
+      "Environment",
+      "Economy",
+      "Science",
       "Other",
     ],
     required: true,
   },
   author: {
+    type: String,
+    required: true,
+  },
+  newsImage: {
     type: String,
     required: true,
   },

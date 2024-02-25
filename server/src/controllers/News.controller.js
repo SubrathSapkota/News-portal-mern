@@ -1,5 +1,5 @@
 import { News } from "../modules/News.Schema.js";
-
+import { cloudinary } from "../utils/Cloudinary.js";
 
 // Get new section
 // method: GET
@@ -24,14 +24,44 @@ export const addNews = async (req, res) => {
     if (existingNews) {
       return res
         .status(400)
-        .json({ error: "News  article with the same title alredy exists." });
+        .json({ error: "News article with the same title already exists." });
     }
+
+    const imageData = await cloudinary.uploader.upload(
+      req.file.path,
+      function (err, result) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            success: false,
+            message: "ERROR",
+          });
+        }
+      }
+    );
+
+    // const newsImageLocalpath = req.files?.newsImage?.path;
+    // // console.log(newsImageLocalpath);
+
+    // if (!newsImageLocalpath) {
+    //   console.log("Image is Required.");
+    //   return res.status(400).json({ error: "Image is Required." });
+    // }
+
+    // const newsImageUpload = await uploadOnCloudinary(newsImageLocalpath);
+    // console.log(newsImageLocalpath);
+
+    // if (!newsImageUpload || !newsImageUpload.url) {
+    //   console.log("Failed to upload image.");
+    //   return res.status(500).json({ error: "Failed to upload image." });
+    // }
 
     const newNews = new News({
       title,
       description,
       category,
       author,
+      newsImage: imageData.url,
     });
 
     const savedNews = await newNews.save();
@@ -42,7 +72,6 @@ export const addNews = async (req, res) => {
     res.status(500).json({ error: "Failed to add news article" });
   }
 };
-
 
 // Update news section
 // method: PATCH

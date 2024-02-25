@@ -3,9 +3,11 @@ import dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
 import { router } from "./router/News.routes.js";
+import cors from "cors"
 
 const app = express();
 app.use(express.json())
+app.use(cors())
 
 mongoose
   .connect(process.env.MONGODB_URI)
