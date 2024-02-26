@@ -40,22 +40,6 @@ export const addNews = async (req, res) => {
       }
     );
 
-    // const newsImageLocalpath = req.files?.newsImage?.path;
-    // // console.log(newsImageLocalpath);
-
-    // if (!newsImageLocalpath) {
-    //   console.log("Image is Required.");
-    //   return res.status(400).json({ error: "Image is Required." });
-    // }
-
-    // const newsImageUpload = await uploadOnCloudinary(newsImageLocalpath);
-    // console.log(newsImageLocalpath);
-
-    // if (!newsImageUpload || !newsImageUpload.url) {
-    //   console.log("Failed to upload image.");
-    //   return res.status(500).json({ error: "Failed to upload image." });
-    // }
-
     const newNews = new News({
       title,
       description,

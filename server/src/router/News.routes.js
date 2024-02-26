@@ -7,11 +7,11 @@ import {
 } from "../controllers/News.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 
-const router = express.Router();
+const newsRouter = express.Router();
 
-router.route("/").get(getAllNews);
-router.route("/addnews").post(upload.single("newsImage"), addNews);
-router.route("/updatenews/:id").patch(updateNews);
-router.route("/deletenews/:id").delete(deleteNews);
+newsRouter.route("/").get(getAllNews);
+newsRouter.route("/addnews").post(upload.single("newsImage"), addNews);
+newsRouter.route("/updatenews/:id").patch(updateNews);
+newsRouter.route("/deletenews/:id").delete(deleteNews);
 
-export { router };
+export { newsRouter };
